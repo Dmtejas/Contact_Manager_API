@@ -2,6 +2,8 @@
 //@route GET /api/contacts
 //@access public
 
+const errorHandler = require("../middleware/errorHandle");
+
 const getContacts = (req, res) => {
   res.json({message: "Sending contacts"})
 }
@@ -11,7 +13,16 @@ const getContacts = (req, res) => {
 //@route POST /api/contacts
 //@access public
 const createContact = (req, res) => {
-  res.status(200).json({message: "Creating new contact"})
+  const { name, email } = req.body;
+  if(!name || !email ) {
+    res.status(500);
+    throw new Error("All feilds are mandatory")
+  } 
+  res.status(200).json({
+    name : {name},
+    email: {email}
+  })
+ 
 }
 
 //@desc Get a specific contact
@@ -30,5 +41,10 @@ const updateContent = (req, res) => {
 
 //@desc delete all the contacts
 //@route DELETE /api/contacts/:id
-//@access private
-module.exports = {getContacts, createContact, getContact}
+//@access public
+const deleteContact = (req, res) => {
+  res.status(200).json({message: "Deleted user"})
+}
+
+
+module.exports = {getContacts, createContact, getContact, updateContent, deleteContact}
