@@ -1,0 +1,1 @@
+# HTTP client - ThunderClient inside the VS code extension
