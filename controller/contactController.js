@@ -2,7 +2,6 @@
 //@route GET /api/contacts
 //@access public
 
-const errorHandler = require("../middleware/errorHandle");
 
 const getContacts = (req, res) => {
   res.json({message: "Sending contacts"})
