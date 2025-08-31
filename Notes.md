@@ -35,3 +35,34 @@ const getContacts = asyncHandler(async (req, res, next) => {
 })
 
 It implicitly calls the errorHandler that we have defined whenever something goes off
+
+So either we need to handle the promise usind try catch block or we can use the middleware asyncHandler which handles the promise and calls errorHandler if it encounters any
+
+
+With asyncHandler you just thow the error so it implicitly calls the next(error) so it removes the necessity to write try catch block by ourselves
+
+## Connecting a DB with Mongoose
+
+Install the mongoDB plugin and write .env file using MONGO_URI from atlas
+create a config file which has an async function which establish the connection with mongoDB
+mongoose.connect(process.env.MONGO_URI)
+Then you can log connection.connections.host and connection.connections.name
+
+Then import that file into server.js and call the function defined 
+
+Create a model - for schema
+mongoose.Schema({},{timestamp: true})
+
+Then export the schema
+module.exports = mongoose.model('name-of-collection', schemaName)
+
+import it in contactController to implement CRUD operations
+
+Use await Contact.find() to get all the contacts
+Use await Contact.create({json}) to create the contact
+Use await Contact.findByIdAndUpdate(id, body, {new: true})
+Use await Contact.findByIdAndDelete(id)
+
+## Authorization and Authentication
+
+
